@@ -10,30 +10,26 @@ from .serializer import UserSerializer
 
 @api_view(['POST'])
 def save_user(request):
-    kakao_id = request.data.get('id')
+    kakao_id = request.data.get('kakao_id')
     # nickname = request.data.get('nickname')
     # profile_image = request.data.get('profile_image')
     # thumbnail_image = request.data.get('thumbnail_image')
-
-    try:
-        user_exists = User.objects.filter(kakao_id=kakao_id).exists()
-        if user_exists:
-            print("User exists: OK")
-            return Response(status=status.HTTP_200_OK) 
-        # User는 장고 모델 클래스임, User는 데이터베이스의 테이블과 매핑되어 있다
-        #objects: 장고의 모델 메니저임, 데이터베이스 쿼리를 수행하는 여러 메소드 제공해줌
-        #get(): 주어진 조건에 맞는 단일 레코드를 데이터베이스에서 가져옴, 조건에 맞는 레코드가 없거나 여러 개의 레코드가 있는 경우 예외를 발생시킴
-        #kakao_id = kakao_id: 하나는 User 모델의 필드임, 하나는 함수의 인자로 전달된 값임 즉, 필드 값과 주어진 값이 일치하는 레코드를 찾음
-        
-    except User.DoesNotExist:
-        pass
-    serializer = UserSerializer(data = request.data)
-
-    if serializer.is_valid(): # serializer.is_valid() 메서드는 시리얼라이저에 전달된 데이터가 모든 필드와 검증 조건을 만족하는지 검사
-        serializer.save()
-        #serializer.save() 메서드를 호출하면 시리얼라이저에 전달된 데이터가 검증된 후 
-        # 해당 모델 인스턴스로 저장됩니다. 이 과정에서 시리얼라이저는 내부적으로 모델의 save() 메서드를 호출하여 데이터베이스에 객체를 저장
-        return Response(status = status.HTTP_201_CREATED)
+    user_exists = User.objects.filter(kakao_id=kakao_id).exists()
+    if user_exists:
+        print("User exists: OK")
+        return Response(status=status.HTTP_200_OK) 
+    # User는 장고 모델 클래스임, User는 데이터베이스의 테이블과 매핑되어 있다
+    #objects: 장고의 모델 메니저임, 데이터베이스 쿼리를 수행하는 여러 메소드 제공해줌
+    #get(): 주어진 조건에 맞는 단일 레코드를 데이터베이스에서 가져옴, 조건에 맞는 레코드가 없거나 여러 개의 레코드가 있는 경우 예외를 발생시킴
+    #kakao_id = kakao_id: 하나는 User 모델의 필드임, 하나는 함수의 인자로 전달된 값임 즉, 필드 값과 주어진 값이 일치하는 레코드를 찾음
+    
+    else:
+        serializer = UserSerializer(data = request.data)
+        if serializer.is_valid(): # serializer.is_valid() 메서드는 시리얼라이저에 전달된 데이터가 모든 필드와 검증 조건을 만족하는지 검사
+            serializer.save()
+            #serializer.save() 메서드를 호출하면 시리얼라이저에 전달된 데이터가 검증된 후 
+            # 해당 모델 인스턴스로 저장됩니다. 이 과정에서 시리얼라이저는 내부적으로 모델의 save() 메서드를 호출하여 데이터베이스에 객체를 저장
+            return Response(status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
