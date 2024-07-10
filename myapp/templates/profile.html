@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    
+    <div>
+        <p><strong>ID:</strong> {{ user_info.id }}</p>
+        <p><strong>Nickname:</strong> {{ user_info.properties.nickname }}</p>
+        <p><strong>Email:</strong> {{ user_info.kakao_account.email }}</p>
+        <p><strong>Profile Image:</strong></p>
+        <img src="{{ user_info.properties.profile_image }}" alt="Profile Image">
+        <p><strong>Thumbnail Image:</strong></p>
+        <img src="{{ user_info.properties.thumbnail_image }}" alt="Thumbnail Image">
+    </div>
+    
+    <div>
+        <a href="{% url 'kakao_signin' %}">Sign in with Kakao</a>
+    </div>
+</body>
+</html>
