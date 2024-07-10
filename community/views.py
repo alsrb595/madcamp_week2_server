@@ -32,16 +32,18 @@ def my_post(request):
 
 @api_view(['DELETE'])
 def delete_post(request):
-    post_id = request.data.get('post_id')
-    kakao_id = request.data.get('kakao_id')
+    kakao_id = request.query_params.get('kakao_id')
+    post_id = request.query_params.get('post_id')
+
+    if not post_id or not kakao_id:
+        return Response({'error': 'post_id and kakao_id are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        posts = Post.objects.get(post_id = post_id, kakao_id = kakao_id)
-        posts.comments.all().delete()
-        posts.delete()
+        post = Post.objects.get(post_id=post_id, kakao_id=kakao_id)
+        post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     except Post.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Post not found.'}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 def save_comment(request):
@@ -53,8 +55,8 @@ def save_comment(request):
     
 @api_view(['DELETE'])
 def delete_comment(request):
-    post_id = request.data.get('post_id')
-    comment_id = request.data.get('comment_id')
+    post_id = request.query_params.get('post_id')
+    comment_id = request.query_params.get('comment_id')
 
     try:
         comment = Comment.objects.get(post_id = post_id, comment_id = comment_id)
