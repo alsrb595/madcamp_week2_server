@@ -156,7 +156,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': 'cd2ba238a8ee939b7f22a13c872d0adc',
             'secret': 'abpfH1xPiSkkFeu9p3Eyg9PGju0TG6Q8',
         },
-        'callback_url': 'http://143.248.226.32:8000/users/signin/kakao/callback/',
+        'callback_url': 'http://3.39.149.240:8000/users/signin/kakao/callback/',
     }
 }
 """
