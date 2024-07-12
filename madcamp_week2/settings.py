@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # 프로�
 MEDIA_URL = '/media/' # 미디어 파일이 저장될 경로임
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SECRET_KEY = 'django-insecure-rwkt+itf27!632=4ph0f=a*##*gj0k*c3sgenbaee!cl+)z$v('
+SECRET_KEY = ''
 
 DEBUG = True
 
@@ -98,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_project',
         'USER': 'root',
-        'PASSWORD': 'apdlvmF12@',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
@@ -137,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
 
-KAKAO_REST_API_KEY = 'cd2ba238a8ee939b7f22a13c872d0adc'
+KAKAO_REST_API_KEY = ''
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_REDIRECT_URL = 'http://www.naver.com'
